@@ -4,16 +4,13 @@ using ArenaPro.Domain.Validations;
 namespace ArenaPro.Domain.Entities;
 public class Player : Entity
 {
-    public Player(string nick, Team team, string? name = null, int age = -1, string? genre = null, string? email = null)
+    public Player(string nick, Team? team, string? name = null, int age = -1, string? genre = null, string? email = null)
     {
         var cleanNick = nick.Replace(" ", "");
-        DomainException.When(team == null, "Team could not be NULL");
         DomainException.When(cleanNick.Length < 4, "Nick must have at least 4 characters");
         DomainException.When(age < 18 && age != -1, "Age could not be less than 18 years");
 
         Nick = cleanNick;
-        Team = team;
-        TeamId = team.Id;
         Name = name;
         Age = age;
         Genre = genre;

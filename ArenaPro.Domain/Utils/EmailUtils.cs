@@ -7,7 +7,7 @@ public static class EmailUtils
 
     public static bool IsValidEmail(string email)
     {
-        if (string.IsNullOrWhiteSpace(email))
+        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrEmpty(email))
         {
             return false;
         }

@@ -3,18 +3,18 @@
 namespace ArenaPro.Domain.Entities;
 public class Team : Entity
 {
-    public Team(string name,List<Player> players, string? logo = null, List<Tournament>? tournaments = null, List<Match>? matches = null)
+    public Team(string name, List<Player> players, string? logo = null, List<Tournament>? tournaments = null, List<Match>? matches = null)
     {
         var cleanName = name.Replace(" ", "");
         DomainException.When(players.Count > 5, "Team must to have MAX 5 players");
         DomainException.When(cleanName.Length < 4, "Name must have at least 4 characters");
 
-        Name = cleanName; 
+        Name = cleanName;
         Players = players;
-        Logo = logo; 
+        Logo = logo;
 
-        if(tournaments != null) Tournaments = tournaments;
-        if(matches != null) Matches = matches;
+        if (tournaments != null) Tournaments = tournaments;
+        if (matches != null) Matches = matches;
     }
 
     public void ChangeName(string name)
@@ -32,13 +32,27 @@ public class Team : Entity
         Players.Add(player);
     }
 
-    public void AddTournament(Tournament tournament) => Tournaments.Add(tournament);
+    public void AddTournament(Tournament tournament)
+    {
+        if(Tournaments == null) Tournaments = new List<Tournament>();
+        Tournaments.Add(tournament);
+    }
 
-    public void RemoveTournament(Tournament tournament) => Tournaments.Remove(tournament);
+    public void RemoveTournament(Tournament tournament) {
+        if (Tournaments == null) return;
+        Tournaments.Remove(tournament);}
 
-    public void AddMatch(Match match) => Matches.Add(match);
+    public void AddMatch(Match match)
+    {
+        if (Matches == null) Matches = new List<Match>();
+        Matches.Add(match);
+    }
 
-    public void RemoveMatch(Match match) => Matches.Remove(match);
+    public void RemoveMatch(Match match)
+    {
+        if (Matches == null) return;
+        Matches.Remove(match);
+    }
 
 
     public string Name { get; private set; }

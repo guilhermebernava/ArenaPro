@@ -21,11 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ArenaPro.Domain\ArenaPro.Domain.csproj" />
   </ItemGroup>
 

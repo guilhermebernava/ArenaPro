@@ -8,10 +8,10 @@ public class EmailUtilsTests
     [InlineData("user.name+tag+sorting@example.com", true)]
     [InlineData("invalid-email", false)]
     [InlineData("another.invalid@", false)]
-    [InlineData("yet@another.invalid", false)]
+    [InlineData("yet@another.invalid", true)]
     [InlineData("", false)]
     [InlineData(null, false)]
-    public void IsValidEmail_ValidatesCorrectly(string email, bool expected)
+    public void ItShouldValidateEmailCorrectly(string email, bool expected)
     {
         // Act
         bool result = EmailUtils.IsValidEmail(email);

@@ -1,4 +1,5 @@
 ﻿using ArenaPro.Domain.Validations;
+using System.Text.RegularExpressions;
 
 namespace ArenaPro.Domain.Entities;
 public class Tournament : Entity
@@ -29,19 +30,29 @@ public class Tournament : Entity
         Prize = prize;
     }
 
-    public void AddTeams(List<Team> teams) => Teams.AddRange(teams);
+    public void AddTeams(List<Team> teams)
+    {
+        if(Teams == null) Teams = new List<Team>();
+        Teams.AddRange(teams);
+    }
 
     public void RemoveTeams(List<Team> teams) {
+        if (Teams == null) return;
         foreach (Team team in teams)
         {
             Teams.Remove(team);
         }
     }
 
-    public void AddMatches(List<Match> matches) => Matches.AddRange(matches);
+    public void AddMatches(List<Match> matches)
+    {
+        if (Matches == null) Matches = new List<Match>();
+        Matches.AddRange(matches);
+    }
 
     public void RemoveMatches(List<Match> matches)
     {
+        if(Matches == null) return;
         foreach (Match match in matches)
         {
             Matches.Remove(match);

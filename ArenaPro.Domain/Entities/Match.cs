@@ -56,7 +56,7 @@ public class Match : Entity
         DomainException.When(kills < 0 || deaths < 0 || assists < 0, "Kills,Deaths or Assists could not be less than 0");
         if (MatchPlayerKdas != null)
         {
-            DomainException.When(MatchPlayerKdas.Count > 10, "Could not add more MatchPlayerKda, can olny have 10 MatchPlayerKda per Match");
+            DomainException.When(MatchPlayerKdas.Count >= 10, "Could not add more MatchPlayerKda, can olny have 10 MatchPlayerKda per Match");
 
             MatchPlayerKdas.Add(new MatchPlayerKda()
             {
