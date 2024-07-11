@@ -4,6 +4,10 @@ using System.Text.RegularExpressions;
 namespace ArenaPro.Domain.Entities;
 public class Tournament : Entity
 {
+    protected Tournament()
+    {
+        
+    }
     public Tournament(string name,double? prize = null, List<Team>? teams = null)
     {
         var cleanName = name.Replace(" ", "");

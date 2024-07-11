@@ -5,9 +5,15 @@ VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArenaPro.Domain", "ArenaPro.Domain\ArenaPro.Domain.csproj", "{B416B77E-9545-4326-A29C-9D623B56D327}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArenaPro.Domain.Tests", "ArenaPro.Domain.Tests\ArenaPro.Domain.Tests.csproj", "{39D464F7-8D6C-40F2-B6BA-BC89662F51F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArenaPro.Domain.Tests", "ArenaPro.Domain.Tests\ArenaPro.Domain.Tests.csproj", "{39D464F7-8D6C-40F2-B6BA-BC89662F51F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Domain", "1 - Domain", "{2239729B-719D-45AF-BFA9-07EFC058968C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Infra", "2 - Infra", "{2CDF5250-3A59-497A-8CD2-DE1CC2EA889B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArenaPro.Infra", "ArenaPro.Infra\ArenaPro.Infra.csproj", "{45300DC2-C0F1-4A4D-A772-8FBECB5BFDBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArenaPro.Infra.Tests", "ArenaPro.Infra.Tests\ArenaPro.Infra.Tests.csproj", "{EAF3F73D-2929-43EA-884E-0BB6E8DB649E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +29,14 @@ Global
 		{39D464F7-8D6C-40F2-B6BA-BC89662F51F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39D464F7-8D6C-40F2-B6BA-BC89662F51F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39D464F7-8D6C-40F2-B6BA-BC89662F51F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45300DC2-C0F1-4A4D-A772-8FBECB5BFDBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45300DC2-C0F1-4A4D-A772-8FBECB5BFDBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45300DC2-C0F1-4A4D-A772-8FBECB5BFDBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45300DC2-C0F1-4A4D-A772-8FBECB5BFDBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAF3F73D-2929-43EA-884E-0BB6E8DB649E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAF3F73D-2929-43EA-884E-0BB6E8DB649E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAF3F73D-2929-43EA-884E-0BB6E8DB649E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAF3F73D-2929-43EA-884E-0BB6E8DB649E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +44,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B416B77E-9545-4326-A29C-9D623B56D327} = {2239729B-719D-45AF-BFA9-07EFC058968C}
 		{39D464F7-8D6C-40F2-B6BA-BC89662F51F6} = {2239729B-719D-45AF-BFA9-07EFC058968C}
+		{45300DC2-C0F1-4A4D-A772-8FBECB5BFDBA} = {2CDF5250-3A59-497A-8CD2-DE1CC2EA889B}
+		{EAF3F73D-2929-43EA-884E-0BB6E8DB649E} = {2CDF5250-3A59-497A-8CD2-DE1CC2EA889B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {805ECB55-8366-42B5-8E79-1B1608DFB77E}

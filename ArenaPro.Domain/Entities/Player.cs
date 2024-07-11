@@ -4,6 +4,10 @@ using ArenaPro.Domain.Validations;
 namespace ArenaPro.Domain.Entities;
 public class Player : Entity
 {
+    protected Player()
+    {
+        
+    }
     public Player(string nick, Team? team, string? name = null, int age = -1, string? genre = null, string? email = null)
     {
         var cleanNick = nick.Replace(" ", "");

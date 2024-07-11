@@ -3,6 +3,10 @@
 namespace ArenaPro.Domain.Entities;
 public class Match : Entity
 {
+    protected Match()
+    {
+        
+    }
     public Match(DateTime matchDate, Tournament tournament, List<Team> teams)
     {
         DomainException.When(tournament == null, "Tournament could not be NULL");

@@ -3,6 +3,10 @@
 namespace ArenaPro.Domain.Entities;
 public class Team : Entity
 {
+    protected Team()
+    {
+        
+    }
     public Team(string name, List<Player> players, string? logo = null, List<Tournament>? tournaments = null, List<Match>? matches = null)
     {
         var cleanName = name.Replace(" ", "");
