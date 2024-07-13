@@ -10,4 +10,5 @@ public interface IRepository<T> where T : Entity
     Task<T?> GetByIdAsync(int id, params Expression<Func<T, object>>[] includes);
     Task<List<T>> GetAllAsync(params Expression<Func<T, object>>[] includes);
     Task<bool> SaveAsync();
+    IQueryable<T> AddIncludes(params Expression<Func<T, object>>[] includes);
 }

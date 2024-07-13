@@ -7,15 +7,15 @@ using System.Linq.Expressions;
 namespace ArenaPro.Infra.Repositories;
 public class Repository<T> : IRepository<T> where T : Entity
 {
-    private AppDbContext _dbContext;
+    public readonly AppDbContext _context;
     public DbSet<T> dbSet { get; set; }
     public Repository(AppDbContext dbContext)
     {
-        _dbContext = dbContext;
-        dbSet = _dbContext.Set<T>();
+        _context = dbContext;
+        dbSet = _context.Set<T>();
     }
 
-    public async Task<bool> CreateAsync(T T)
+    public async virtual Task<bool> CreateAsync(T T)
     {
         dbSet.Add(T);
         return await SaveAsync();
@@ -29,23 +29,14 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public Task<List<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
     {
-        IQueryable<T> query = dbSet;
-        foreach (var includeProperty in includes)
-        {
-            query = query.Include(includeProperty);
-        }
+        var query = AddIncludes(includes);
         return query.ToListAsync();
     }
 
     public async Task<T?> GetByIdAsync(int id, params Expression<Func<T, object>>[] includes)
     {
-        IQueryable<T> query = dbSet;
-        foreach (var includeProperty in includes)
-        {
-            query = query.Include(includeProperty);
-        }
-        
-       return await query.Where(_ => _.Id == id).FirstOrDefaultAsync();
+        var query = AddIncludes(includes);
+        return await query.Where(_ => _.Id == id).FirstOrDefaultAsync();
     }
 
     public async Task<bool> UpdateAsync(T T)
@@ -54,6 +45,20 @@ public class Repository<T> : IRepository<T> where T : Entity
         return await SaveAsync();
     }
 
-    public async Task<bool> SaveAsync() => await _dbContext.SaveChangesAsync() == 1;
+    public async Task<bool> SaveAsync()
+    {
+        var result = await _context.SaveChangesAsync();
+        return result > 0;
+    }
 
+
+    public IQueryable<T> AddIncludes(params Expression<Func<T, object>>[] includes)
+    {
+        IQueryable<T> query = dbSet;
+        foreach (var includeProperty in includes)
+        {
+            query = query.Include(includeProperty);
+        }
+        return query;
+    }
 }

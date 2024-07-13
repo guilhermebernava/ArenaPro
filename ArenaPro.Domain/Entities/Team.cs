@@ -7,16 +7,16 @@ public class Team : Entity
     {
         
     }
-    public Team(string name, List<Player> players, string? logo = null, List<Tournament>? tournaments = null, List<Match>? matches = null)
+    public Team(string name, List<Player>? players = null, string? logo = null, List<Tournament>? tournaments = null, List<Match>? matches = null)
     {
         var cleanName = name.Replace(" ", "");
-        DomainException.When(players.Count > 5, "Team must to have MAX 5 players");
+        DomainException.When(players?.Count > 5, "Team must to have MAX 5 players");
         DomainException.When(cleanName.Length < 4, "Name must have at least 4 characters");
 
         Name = cleanName;
-        Players = players;
         Logo = logo;
 
+        if(players != null) Players = players;
         if (tournaments != null) Tournaments = tournaments;
         if (matches != null) Matches = matches;
     }

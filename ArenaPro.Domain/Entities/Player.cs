@@ -8,7 +8,7 @@ public class Player : Entity
     {
         
     }
-    public Player(string nick, Team? team, string? name = null, int age = -1, string? genre = null, string? email = null)
+    public Player(string nick, Team? team = null, string? name = null, int age = -1, string? genre = null, string? email = null)
     {
         var cleanNick = nick.Replace(" ", "");
         DomainException.When(cleanNick.Length < 4, "Nick must have at least 4 characters");

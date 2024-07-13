@@ -95,7 +95,7 @@ public class Match : Entity
     public void ChangeMatchDate(DateTime newDate)
     {
         DomainException.When(newDate.Date < new DateTime(2010, 12, 31), "MatchDate could not be smaller than 12/31/2010");
-        MatchDate = newDate;
+        MatchDate = newDate.Date;
     }
 
     public bool ChangeTeam(Team teamToRemove, Team teamToAdd)
