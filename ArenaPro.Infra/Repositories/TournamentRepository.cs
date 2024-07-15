@@ -13,7 +13,7 @@ public class TournamentRepository : Repository<Tournament>, ITournamentRepositor
     public async Task<List<Tournament>> GetByNameAsync(string name, params Expression<Func<Tournament, object>>[] includes)
     {
         var query = AddIncludes(includes);
-        var entities = await query.Where(_ => _.Name.Contains(name)).ToListAsync();
+        var entities = await query.Where(_ => _.Name.Contains(name) && _.DeletedAt == null).ToListAsync();
         return entities;
     }
 }

@@ -23,20 +23,21 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public async Task<bool> DeleteAsync(T T)
     {
-        dbSet.Remove(T);
+        T.Delete();
+        dbSet.Update(T);
         return await SaveAsync();
     }
 
     public Task<List<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
     {
         var query = AddIncludes(includes);
-        return query.ToListAsync();
+        return query.Where(_ =>  _.DeletedAt == null).ToListAsync();
     }
 
     public async Task<T?> GetByIdAsync(int id, params Expression<Func<T, object>>[] includes)
     {
         var query = AddIncludes(includes);
-        return await query.Where(_ => _.Id == id).FirstOrDefaultAsync();
+        return await query.Where(_ => _.Id == id && _.DeletedAt == null).FirstOrDefaultAsync();
     }
 
     public async Task<bool> UpdateAsync(T T)

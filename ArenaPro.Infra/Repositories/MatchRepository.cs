@@ -13,14 +13,14 @@ public class MatchRepository : Repository<Match>, IMatchRepository
     public async Task<List<Match>> GetByDateAsync(DateTime date, bool? ended = null, params Expression<Func<Match, object>>[] includes)
     {
         var query = AddIncludes(includes);
-        var entities = await query.Where(_ => _.MatchDate.Date == date.Date && (!ended.HasValue || _.Ended == ended.Value)).ToListAsync();
+        var entities = await query.Where(_ => _.MatchDate.Date == date.Date && _.DeletedAt == null && (!ended.HasValue || _.Ended == ended.Value)).ToListAsync();
         return entities;
     }
 
     public async Task<List<Match>> GetByTournamentIdAsync(int tournamentId, bool? ended = null, params Expression<Func<Match, object>>[] includes)
     {
         var query = AddIncludes(includes);
-        var entities = await query.Where(_ => _.TournamentId == tournamentId && (!ended.HasValue || _.Ended == ended.Value)).ToListAsync();
+        var entities = await query.Where(_ => _.TournamentId == tournamentId && _.DeletedAt == null && (!ended.HasValue || _.Ended == ended.Value)).ToListAsync();
         return entities;
     }
 }

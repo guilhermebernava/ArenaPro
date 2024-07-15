@@ -2,10 +2,10 @@
 public abstract class Entity
 {
     public int Id { get; private set; }
-    public DateTime DeletedAt { get; private set; }
+    public DateTime? DeletedAt { get; private set; }
 
-    public void ChangeDate(DateTime date)
+    public void Delete()
     {
-        DeletedAt = date;
+        DeletedAt = DateTime.Now;
     }
 }

@@ -14,14 +14,14 @@ public class PlayerRepository : Repository<Player>, IPlayerRepository
     public async Task<List<Player>> GetByNickAsync(string nick, params Expression<Func<Player, object>>[] includes)
     {
         var query = AddIncludes(includes);
-        var entities = await query.Where(_ => _.Nick.Contains(nick)).ToListAsync();
+        var entities = await query.Where(_ => _.Nick.Contains(nick) && _.DeletedAt == null).ToListAsync();
         return entities;
     }
 
     public async Task<List<Player>> GetByTeamIdAsync(int teamId, params Expression<Func<Player, object>>[] includes)
     {
         var query = AddIncludes(includes);
-        var entities = await query.Where(_ => _.TeamId == teamId).ToListAsync();
+        var entities = await query.Where(_ => _.TeamId == teamId && _.DeletedAt == null).ToListAsync();
         return entities;
     }
 }
