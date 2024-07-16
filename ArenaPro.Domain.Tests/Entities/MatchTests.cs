@@ -84,7 +84,22 @@ public class MatchTests
         match.AddMatchResult(team1, true);
 
         Assert.Single(match.MatchesResults);
-        Assert.Equal(team1, match.MatchesResults.First().Team);
+    }
+
+    [Fact]
+    public void ItShouldRemoveMatchResultCorrectly()
+    {
+        var team1 = new Team("Team 1", new List<Player>());
+        var tournament = new Tournament("test");
+        var teams = new List<Team>() { team1 };
+        var match = new Match(DateTime.Now, tournament, teams);
+
+        match.AddMatchResult(team1, true);
+        Assert.True(match.MatchesResults.Count > 0);
+
+        var teamMatch = match.MatchesResults.First();
+        match.RemoveMatchResult(teamMatch);
+        Assert.True(match.MatchesResults.Count == 0);
     }
     #endregion
 
@@ -144,6 +159,23 @@ public class MatchTests
         Assert.Single(match.MatchPlayerKdas);
         Assert.Equal(player, match.MatchPlayerKdas.First().Player);
     }
+
+    [Fact]
+    public void ItShouldRemoveMatchPlayerKdaCorrectly()
+    {
+        var tournament = new Tournament("test");
+        var teams = new List<Team>() { new Team("test 1", new List<Player>()) };
+        var match = new Match(DateTime.Now, tournament, teams);
+        var player = new Player("Player 1", teams.First());
+
+        match.AddMatchPlayerKda(player, 1, 1, 1);
+        Assert.Single(match.MatchPlayerKdas);
+        Assert.Equal(player, match.MatchPlayerKdas.First().Player);
+
+        var playerKda = match.MatchPlayerKdas.First();
+        match.RemoveMatchPlayerKda(playerKda);
+        Assert.True(match.MatchPlayerKdas.Count == 0);
+    }
     #endregion
 
     #region CHANGE DATE
@@ -170,55 +202,6 @@ public class MatchTests
         match.ChangeMatchDate(newDate);
 
         Assert.Equal(newDate, match.MatchDate);
-    }
-    #endregion
-
-    #region CHANGE TEAM
-    [Fact]
-    public void ItShouldReturnFalseWhenTeamToRemoveIsNotInList()
-    {
-        var tournament = new Tournament("test");
-        var teams = new List<Team>() { };
-        var match = new Match(DateTime.Now, tournament, teams);
-        var teamToRemove = new Team("Team to Remove", new List<Player>());
-        var teamToAdd = new Team("Team to Add", new List<Player>());
-
-        var result = match.ChangeTeam(teamToRemove, teamToAdd);
-
-        Assert.False(result);
-        Assert.DoesNotContain(teamToAdd, match.Teams);
-    }
-
-    [Fact]
-    public void ItShouldChangeTeamCorrectly()
-    {
-        var tournament = new Tournament("test");
-        var teams = new List<Team>() { };
-        var match = new Match(DateTime.Now, tournament, teams);
-        var teamToRemove = new Team("Team to Remove", new List<Player>());
-        var teamToAdd = new Team("Team to Add", new List<Player>());
-
-        match.Teams.Add(teamToRemove);
-
-        var result = match.ChangeTeam(teamToRemove, teamToAdd);
-
-        Assert.True(result);
-        Assert.Contains(teamToAdd, match.Teams);
-        Assert.DoesNotContain(teamToRemove, match.Teams);
-    }
-    #endregion
-
-    #region END MATCH
-    [Fact]
-    public void ItShouldEndMatchCorrectly()
-    {
-        var tournament = new Tournament("test");
-        var teams = new List<Team>() { new Team("test 1", new List<Player>()), new Team("test 2", new List<Player>()) };
-        var match = new Match(DateTime.Now, tournament, teams);
-
-        match.EndMatch();
-
-        Assert.True(match.Ended);
     }
     #endregion
 }

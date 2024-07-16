@@ -27,31 +27,24 @@ public class Match : Entity
         {
             DomainException.When(MatchesResults.Count > 1, "Could not add more Match results, can olny have 2 Teams results per Match");
 
-            MatchesResults.Add(new TeamMatch()
-            {
-                Match = this,
-                MatchId = Id,
-                Team = team,
-                TeamId = team.Id,
-                Won = win
-            });
-
+            MatchesResults.Add(new TeamMatch(team!,this,win));
         }
         else
         {
             MatchesResults = new List<TeamMatch>
             {
-                new TeamMatch()
-                {
-                Match= this,
-                MatchId = Id,
-                Team = team,
-                TeamId = team.Id,
-                Won = win
-                }
+               new TeamMatch(team!,this,win)
             };
         }
 
+    }
+
+    public void RemoveMatchResult(TeamMatch teamMatch)
+    {
+        if (MatchesResults == null) return;
+        var existTeamMatch = MatchesResults?.FirstOrDefault(_ => _.TeamId == teamMatch.TeamId && _.MatchId == teamMatch.MatchId);
+        if (existTeamMatch == null) return;
+        MatchesResults?.Remove(existTeamMatch);
     }
 
     public void AddMatchPlayerKda(Player player, int kills, int deaths, int assists)
@@ -92,28 +85,24 @@ public class Match : Entity
         }
     }
 
+    public void RemoveMatchPlayerKda(MatchPlayerKda matchPlayerKda) 
+    {
+        if (MatchPlayerKdas == null) return;
+        var entity = MatchPlayerKdas?.FirstOrDefault(_ => _.PlayerId == matchPlayerKda.PlayerId && _.MatchId == matchPlayerKda.MatchId);
+        if (entity == null) return;
+        MatchPlayerKdas?.Remove(entity);
+    }
+
     public void ChangeMatchDate(DateTime newDate)
     {
         DomainException.When(newDate.Date < new DateTime(2010, 12, 31), "MatchDate could not be smaller than 12/31/2010");
         MatchDate = newDate.Date;
     }
 
-    public bool ChangeTeam(Team teamToRemove, Team teamToAdd)
-    {
-        var couldRemove = Teams.Remove(teamToRemove);
-        if (couldRemove)Teams.Add(teamToAdd);
-        return couldRemove;
-    }
-
-    public void EndMatch()
-    {
-        Ended = true;
-    }
-
     public DateTime MatchDate { get; private set; }
-    public bool Ended { get; private set; }
-    public int TournamentId { get; private set; }
-    public virtual Tournament Tournament { get; private set; }
+    public bool Ended { get; set; }
+    public int TournamentId { get; set; }
+    public virtual Tournament Tournament { get; set; }
     public virtual List<Team> Teams { get; private set; }
     public virtual List<TeamMatch> MatchesResults { get; private set; }
     public virtual List<MatchPlayerKda> MatchPlayerKdas { get; private set; }

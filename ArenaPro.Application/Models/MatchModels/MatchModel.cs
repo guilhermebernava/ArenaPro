@@ -3,13 +3,13 @@
 namespace ArenaPro.Application.Models.MatchValidations;
 public class MatchModel
 {
-    public int? Id { get; private set; }
-    public DateTime MatchDate { get;  private set; }
-    public bool? Ended { get; private set; }
-    public List<TeamModel> Teams { get; private set; }
-    public int TournamentId { get; private set; }
-    public virtual List<TeamMatchModel>? MatchesResults { get; private set; }
-    public virtual List<MatchPlayerKda>? MatchPlayerKdas { get; private set; }
+    public int? Id { get;  set; }
+    public DateTime MatchDate { get;   set; }
+    public bool? Ended { get;  set; }
+    public List<TeamModel> Teams { get;  set; }
+    public int TournamentId { get;  set; }
+    public virtual List<TeamMatchModel>? MatchesResults { get;  set; }
+    public virtual List<MatchPlayerKda>? MatchPlayerKdas { get;  set; }
 }
 
 

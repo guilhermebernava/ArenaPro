@@ -13,7 +13,7 @@ public class MatchDeleteServices : IMatchDeleteServices
 
     public async Task<bool> ExecuteAsync(int parameter)
     {
-        if (parameter < 1) throw new ValidationException("Id must be greater than 1");
+        if (parameter < 1) throw new ValidationException("Id must be greater than 0");
         
         var match = await _matchRepository.GetByIdAsync(parameter);
         if (match == null) throw new RepositoryException("Not found any MATCH with this Id", "Match");
