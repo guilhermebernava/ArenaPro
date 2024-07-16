@@ -26,8 +26,6 @@ public class Tournament : Entity
         Name = cleanName;
     }
 
-    public void EndTournament() => Ended = true;
-
     public void ChangePrize(double prize)
     {
         DomainException.When(prize < 0, "Prize must be greater than 0");
@@ -44,7 +42,8 @@ public class Tournament : Entity
         if (Teams == null) return;
         foreach (Team team in teams)
         {
-            Teams.Remove(team);
+            var existTeam = Teams.FirstOrDefault(_ => _.Id == team.Id);
+            if(existTeam != null) Teams.Remove(existTeam);
         }
     }
 
@@ -59,13 +58,14 @@ public class Tournament : Entity
         if(Matches == null) return;
         foreach (Match match in matches)
         {
-            Matches.Remove(match);
+            var existMatch = Matches.FirstOrDefault(_ => _.Id == match.Id);
+            if (existMatch != null) Matches.Remove(existMatch);
         }
     }
 
     public string Name { get; private set; }
     public double? Prize { get; private set; }
-    public bool Ended { get; private set; }
+    public bool Ended { get; set; }
     public virtual List<Team> Teams { get; private set; }
     public virtual List<Match> Matches { get; private set; }
 }

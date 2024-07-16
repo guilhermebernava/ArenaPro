@@ -1,6 +1,10 @@
 ﻿namespace ArenaPro.Domain.Entities;
 public class TeamMatch
 {
+    protected TeamMatch()
+    {
+        
+    }
     public TeamMatch(Team team, Match match, bool won)
     {
         TeamId = team.Id;

@@ -76,18 +76,6 @@ public class TournamentTests
     }
     #endregion
 
-    #region END TOURNAMENT
-    [Fact]
-    public void ItShouldEndTournament()
-    {
-        var tournament = new Tournament("Valid Name");
-
-        tournament.EndTournament();
-
-        Assert.True(tournament.Ended);
-    }
-    #endregion
-
     #region CHANGE PRIZE
     [Fact]
     public void ItShouldThrowExceptionWhenChangePrizeIsNegative()

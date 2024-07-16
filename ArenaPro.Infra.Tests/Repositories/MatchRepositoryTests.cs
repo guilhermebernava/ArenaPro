@@ -35,7 +35,7 @@ public class MatchRepositoryTests
         Assert.True(saved);
 
         var match2 = new Match(DateTime.Now, tournament, new List<Team>());
-        match2.EndMatch();
+        match2.Ended = true;
         saved = await repository.CreateAsync(match2);
         Assert.True(saved);
 
@@ -72,7 +72,7 @@ public class MatchRepositoryTests
         Assert.True(saved);
 
         var match2 = new Match(DateTime.Now, tournament, new List<Team>());
-        match2.EndMatch();
+        match2.Ended = true;
         saved = await repository.CreateAsync(match2);
         Assert.True(saved);
 
