@@ -1,5 +1,6 @@
 ﻿using ArenaPro.Application.Abstractions.MatchServices;
 using ArenaPro.Application.Exceptions;
+using ArenaPro.Application.Models.MatchModels;
 using ArenaPro.Domain.Entities;
 
 namespace ArenaPro.Application.Services.MatchServices;

@@ -1,4 +1,5 @@
 ﻿using ArenaPro.Application.Abstractions.MatchServices;
+using ArenaPro.Application.Models.MatchModels;
 using ArenaPro.Domain.Entities;
 
 namespace ArenaPro.Application.Services.MatchServices;
@@ -11,9 +12,9 @@ public class MatchGetByTournamentIdServices : IMatchGetByTournamentIdServices
         _matchRepository = matchRepository;
     }
 
-    public async Task<List<Match>> ExecuteAsync(int TournamentId)
+    public async Task<List<Match>> ExecuteAsync(MatchGetModel<int> parameter)
     {
-        var matches = await _matchRepository.GetByTournamentIdAsync(TournamentId);
+        var matches = await _matchRepository.GetByTournamentIdAsync(parameter.Data, parameter.Ended);
         return matches;
     }
 }
