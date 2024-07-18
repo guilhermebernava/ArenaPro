@@ -1,7 +1,6 @@
-﻿using ArenaPro.Application.Models.MatchModels;
-using ArenaPro.Domain.Entities;
+﻿using ArenaPro.Domain.Entities;
 
 namespace ArenaPro.Application.Abstractions.MatchServices;
-public interface IMatchGetByIdServices : IServices<int, Match>
+public interface IMatchGetByIdServices : IGetServices<int, Match, Match>
 {
 }

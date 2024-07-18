@@ -1,4 +1,5 @@
 ﻿using ArenaPro.Application.Models.MatchValidations;
+using ArenaPro.Application.Models.PlayerModels;
 
 namespace ArenaPro.Application.Models;
 public class TeamModel
@@ -9,5 +10,5 @@ public class TeamModel
     public virtual List<PlayerModel>? Players { get;  set; }
     public virtual List<TournamentModel>? Tournaments { get;  set; }
     public virtual List<MatchModel>? Matches { get;  set; }
-    public virtual List<TeamMatchModel>? MatchesResults { get;  set; }
+    public virtual List<MatchResultModel>? MatchesResults { get;  set; }
 }

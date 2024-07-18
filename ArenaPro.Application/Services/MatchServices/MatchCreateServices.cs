@@ -1,5 +1,6 @@
 ﻿using ArenaPro.Application.Abstractions.MatchServices;
 using ArenaPro.Application.Models.MatchValidations;
+using ArenaPro.Application.Utils;
 using ArenaPro.Domain.Entities;
 using FluentValidation;
 
@@ -25,7 +26,7 @@ public class MatchCreateServices : IMatchCreateServices
         if (!validation.IsValid) throw new ValidationException(validation.Errors);
 
         var tournament = await _tournamentRepository.GetByIdAsync(parameter.TournamentId);
-        if (tournament == null) throw new Exceptions.RepositoryException($"Not found any Tournament with this ID - {parameter.TournamentId}", "Tournament");
+        if (tournament == null) throw new Exceptions.RepositoryException(ExceptionUtils.GetError("Tournament", parameter.TournamentId), "Tournament");
 
         var teams = new List<Team>();
         if (parameter.Teams != null)
@@ -39,7 +40,7 @@ public class MatchCreateServices : IMatchCreateServices
         }
 
         var created = await _matchRepository.CreateAsync(new Match(parameter.MatchDate, tournament, teams));
-        if (!created) throw new Exceptions.RepositoryException("Could not CREATE this MATCH", "Match");
+        if (!created) throw new Exceptions.RepositoryException(ExceptionUtils.CreateError("Match"), "Match");
         return created;
     }
 }

@@ -25,9 +25,9 @@ public class MatchAddMatchResultServicesTests
     [Fact]
     public async Task ItShouldThrowRepositoryExceptionWhenTeamNotFound()
     {
-        var model = new List<TeamMatchModel>
+        var model = new List<MatchResultModel>
             {
-                new TeamMatchModel { TeamId = 1, MatchId = 1, Won = true }
+                new MatchResultModel { TeamId = 1, MatchId = 1, Won = true }
             };
 
         _mockTeamRepository.Setup(r => r.GetByIdAsync(It.IsAny<int>())).ReturnsAsync((Team)null);
@@ -39,12 +39,12 @@ public class MatchAddMatchResultServicesTests
     public async Task ItShouldThrowRepositoryExceptionWhenMatchNotFound()
     {
         var team = new Team("Team1");
-        var model = new List<TeamMatchModel>
+        var model = new List<MatchResultModel>
             {
-                new TeamMatchModel { TeamId = team.Id, MatchId = 1, Won = true }
+                new MatchResultModel { TeamId = team.Id, MatchId = 1, Won = true }
             };
 
-        _mockTeamRepository.Setup(r => r.GetByIdAsync(team.Id)).ReturnsAsync(team);
+        _mockTeamRepository.Setup(r => r.GetByIdAsync(team.Id, _ => _.Matches)).ReturnsAsync(team);
         _mockMatchRepository.Setup(r => r.GetByIdAsync(It.IsAny<int>())).ReturnsAsync((Match)null);
 
         await Assert.ThrowsAsync<RepositoryException>(() => _service.ExecuteAsync(model));
@@ -55,9 +55,9 @@ public class MatchAddMatchResultServicesTests
     {
         var team = new Team("Team1");
         var match = new Match(DateTime.Now, new Tournament("Tournament1"), new List<Team> { team });
-        var model = new List<TeamMatchModel>
+        var model = new List<MatchResultModel>
             {
-                new TeamMatchModel { TeamId = team.Id, MatchId = match.Id, Won = true }
+                new MatchResultModel { TeamId = team.Id, MatchId = match.Id, Won = true }
             };
 
         _mockTeamRepository.Setup(r => r.GetByIdAsync(team.Id)).ReturnsAsync(team);
@@ -76,9 +76,9 @@ public class MatchAddMatchResultServicesTests
     {
         var team = new Team("Team1");
         var match = new Match(System.DateTime.Now, new Tournament("Tournament1"), new List<Team> { team });
-        var model = new List<TeamMatchModel>
+        var model = new List<MatchResultModel>
             {
-                new TeamMatchModel { TeamId = team.Id, MatchId = match.Id, Won = true }
+                new MatchResultModel { TeamId = team.Id, MatchId = match.Id, Won = true }
             };
 
         _mockTeamRepository.Setup(r => r.GetByIdAsync(team.Id)).ReturnsAsync(team);

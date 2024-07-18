@@ -8,7 +8,7 @@ public class MatchModel
     public bool? Ended { get;  set; }
     public List<TeamModel> Teams { get;  set; }
     public int TournamentId { get;  set; }
-    public virtual List<TeamMatchModel>? MatchesResults { get;  set; }
+    public virtual List<MatchResultModel>? MatchesResults { get;  set; }
     public virtual List<MatchPlayerKda>? MatchPlayerKdas { get;  set; }
 }
 

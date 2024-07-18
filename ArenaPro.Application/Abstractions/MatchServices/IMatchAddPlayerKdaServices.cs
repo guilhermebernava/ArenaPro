@@ -1,4 +1,5 @@
 ﻿using ArenaPro.Application.Models.MatchValidations;
+using ArenaPro.Domain.Entities;
 
 namespace ArenaPro.Application.Abstractions.MatchServices;
 public interface IMatchAddPlayerKdaServices : IServices<List<MatchPlayerKdaModel>,bool>

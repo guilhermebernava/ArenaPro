@@ -10,7 +10,7 @@ public class AppDbContext : DbContext
     public DbSet<Player> Players { get; set; }
     public DbSet<Match> Matches { get; set; }
     public DbSet<MatchPlayerKda> MatchPlayerKdas { get; set; }
-    public DbSet<TeamMatch> TeamMatches { get; set; }
+    public DbSet<MatchResult> MatchResultes { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
@@ -23,7 +23,7 @@ public class AppDbContext : DbContext
         modelBuilder.ApplyConfiguration(new MatchConfiguration());
         modelBuilder.ApplyConfiguration(new PlayerConfiguration());
         modelBuilder.ApplyConfiguration(new TeamConfiguration());
-        modelBuilder.ApplyConfiguration(new TeamMatchConfiguration());
+        modelBuilder.ApplyConfiguration(new MatchResultConfiguration());
         modelBuilder.ApplyConfiguration(new MatchPlayerKdaConfiguration());
 
         base.OnModelCreating(modelBuilder);

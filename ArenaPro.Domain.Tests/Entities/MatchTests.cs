@@ -97,8 +97,8 @@ public class MatchTests
         match.AddMatchResult(team1, true);
         Assert.True(match.MatchesResults.Count > 0);
 
-        var teamMatch = match.MatchesResults.First();
-        match.RemoveMatchResult(teamMatch);
+        var matchResult = match.MatchesResults.First();
+        match.RemoveMatchResult(matchResult);
         Assert.True(match.MatchesResults.Count == 0);
     }
     #endregion

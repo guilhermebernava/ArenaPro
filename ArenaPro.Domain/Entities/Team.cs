@@ -64,5 +64,5 @@ public class Team : Entity
     public virtual List<Player> Players { get; private set; }
     public virtual List<Tournament> Tournaments { get; private set; }
     public virtual List<Match> Matches { get; private set; }
-    public virtual List<TeamMatch> MatchesResults { get; private set; }
+    public virtual List<MatchResult> MatchesResults { get; private set; }
 }

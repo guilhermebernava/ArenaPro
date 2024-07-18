@@ -27,24 +27,24 @@ public class Match : Entity
         {
             DomainException.When(MatchesResults.Count > 1, "Could not add more Match results, can olny have 2 Teams results per Match");
 
-            MatchesResults.Add(new TeamMatch(team!,this,win));
+            MatchesResults.Add(new MatchResult(team!,this,win));
         }
         else
         {
-            MatchesResults = new List<TeamMatch>
+            MatchesResults = new List<MatchResult>
             {
-               new TeamMatch(team!,this,win)
+               new MatchResult(team!,this,win)
             };
         }
 
     }
 
-    public void RemoveMatchResult(TeamMatch teamMatch)
+    public void RemoveMatchResult(MatchResult matchResult)
     {
         if (MatchesResults == null) return;
-        var existTeamMatch = MatchesResults?.FirstOrDefault(_ => _.TeamId == teamMatch.TeamId && _.MatchId == teamMatch.MatchId);
-        if (existTeamMatch == null) return;
-        MatchesResults?.Remove(existTeamMatch);
+        var existMatchResult = MatchesResults?.FirstOrDefault(_ => _.TeamId == matchResult.TeamId && _.MatchId == matchResult.MatchId);
+        if (existMatchResult == null) return;
+        MatchesResults?.Remove(existMatchResult);
     }
 
     public void AddMatchPlayerKda(Player player, int kills, int deaths, int assists)
@@ -104,6 +104,6 @@ public class Match : Entity
     public int TournamentId { get; set; }
     public virtual Tournament Tournament { get; set; }
     public virtual List<Team> Teams { get; private set; }
-    public virtual List<TeamMatch> MatchesResults { get; private set; }
+    public virtual List<MatchResult> MatchesResults { get; private set; }
     public virtual List<MatchPlayerKda> MatchPlayerKdas { get; private set; }
 }

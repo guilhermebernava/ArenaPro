@@ -1,6 +1,7 @@
 ﻿using ArenaPro.Application.Abstractions.MatchServices;
 using ArenaPro.Application.Exceptions;
 using ArenaPro.Application.Models.MatchValidations;
+using ArenaPro.Application.Utils;
 using ArenaPro.Domain.Abstractions;
 
 namespace ArenaPro.Application.Services.MatchServices;
@@ -17,21 +18,21 @@ public class MatchAddPlayerKdaServices : IMatchAddPlayerKdaServices
 
     public async Task<bool> ExecuteAsync(List<MatchPlayerKdaModel> parameter)
     {
-        foreach(var matchPlayerKdaModel in parameter)
+        foreach (var matchPlayerKdaModel in parameter)
         {
             if (matchPlayerKdaModel.Kills < 0 || matchPlayerKdaModel.Deaths < 0 || matchPlayerKdaModel.Assists < 0) throw new ValidationException("Kills, Deaths or Assits must be greater than 0");
 
             var player = await _playerRepository.GetByIdAsync(matchPlayerKdaModel.PlayerId);
-            if (player == null) throw new RepositoryException($"Not found Player with this ID - {matchPlayerKdaModel.PlayerId}", "Player");
+            if (player == null) throw new RepositoryException(ExceptionUtils.GetError("Player", matchPlayerKdaModel.PlayerId), "Player");
 
             var match = await _matchRepository.GetByIdAsync(matchPlayerKdaModel.MatchId);
-            if (match == null) throw new RepositoryException($"Not found Match with this ID - {matchPlayerKdaModel.MatchId}", "Match");
+            if (match == null) throw new RepositoryException(ExceptionUtils.GetError("Match", matchPlayerKdaModel.MatchId), "Match");
 
             match.AddMatchPlayerKda(player, matchPlayerKdaModel.Kills, matchPlayerKdaModel.Deaths, matchPlayerKdaModel.Assists);
         }
-        
+
         var saved = await _matchRepository.SaveAsync();
-        if (!saved) throw new RepositoryException($"Could not save this TeamMatch", "Match");
+        if (!saved) throw new RepositoryException(ExceptionUtils.CreateError("PlayerKda"), "Match");
         return saved;
     }
 }

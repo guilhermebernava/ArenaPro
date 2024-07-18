@@ -8,7 +8,7 @@ public class Player : Entity
     {
         
     }
-    public Player(string nick, Team? team = null, string? name = null, int age = -1, string? genre = null, string? email = null)
+    public Player(string nick,int? teamId = null, string? name = null, int? age = null, string? genre = null, string? email = null)
     {
         var cleanNick = nick.Replace(" ", "");
         DomainException.When(cleanNick.Length < 4, "Nick must have at least 4 characters");
@@ -17,6 +17,7 @@ public class Player : Entity
         Nick = cleanNick;
         Name = name;
         Age = age;
+        TeamId = teamId;
         Genre = genre;
         Email = email;
     }
@@ -52,6 +53,6 @@ public class Player : Entity
     public int? Age { get; private set; }
     public string? Genre { get; set; }
     public string? Email { get; private set; }
-    public int TeamId { get; private set; }
+    public int? TeamId { get; private set; }
     public virtual Team Team { get; private set; }
 }

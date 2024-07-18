@@ -1,6 +1,7 @@
 ﻿using ArenaPro.Application.Abstractions.MatchServices;
 using ArenaPro.Application.Exceptions;
 using ArenaPro.Application.Models.MatchValidations;
+using ArenaPro.Application.Utils;
 
 namespace ArenaPro.Application.Services.MatchServices;
 public class MatchRemovePlayerKdaServices : IMatchRemovePlayerKdaServices
@@ -14,17 +15,17 @@ public class MatchRemovePlayerKdaServices : IMatchRemovePlayerKdaServices
 
     public async Task<bool> ExecuteAsync(List<MatchPlayerKdaModel> parameter)
     {
-        foreach (var matchPlayerKdaModel in parameter)
+        foreach (var playerKda in parameter)
         {
-            var match = await _matchRepository.GetByIdAsync(matchPlayerKdaModel.MatchId);
-            if (match == null) throw new RepositoryException($"Not found Match with this ID - {matchPlayerKdaModel.MatchId}", "Match");
-            var existPlayerKda = match.MatchPlayerKdas.FirstOrDefault(_ => _.PlayerId == matchPlayerKdaModel.PlayerId);
-            if (existPlayerKda == null) throw new ValidationException($"Not found PlayerKda of this Player - {matchPlayerKdaModel.PlayerId}");
+            var match = await _matchRepository.GetByIdAsync(playerKda.MatchId);
+            if (match == null) throw new RepositoryException(ExceptionUtils.GetError("Match", playerKda.MatchId), "Match");
+            var existPlayerKda = match.MatchPlayerKdas.FirstOrDefault(_ => _.PlayerId == playerKda.PlayerId);
+            if (existPlayerKda == null) throw new ValidationException(ExceptionUtils.GetError("PlayerKda", playerKda.PlayerId));
             match.RemoveMatchPlayerKda(existPlayerKda);
         }
 
         var saved = await _matchRepository.SaveAsync();
-        if (!saved) throw new RepositoryException($"Could not save", "Match");
+        if (!saved) throw new RepositoryException(ExceptionUtils.DeleteError("PlayerKdas"), "Match");
         return saved;
     }
 }

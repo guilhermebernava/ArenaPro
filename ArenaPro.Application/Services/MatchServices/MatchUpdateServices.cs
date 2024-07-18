@@ -1,6 +1,7 @@
 ﻿using ArenaPro.Application.Abstractions.MatchServices;
 using ArenaPro.Application.Exceptions;
 using ArenaPro.Application.Models.MatchValidations;
+using ArenaPro.Application.Utils;
 using ArenaPro.Domain.Entities;
 
 namespace ArenaPro.Application.Services.MatchServices;
@@ -22,7 +23,7 @@ public class MatchUpdateServices : IMatchUpdateServices
     {
         if (parameter.Id <= 0) throw new ValidationException("Id must be greater than 0");
         var match = await _matchRepository.GetByIdAsync(parameter.Id);
-        if (match == null) throw new RepositoryException($"Not found Match with this ID - {parameter.Id}", "Match");
+        if (match == null) throw new RepositoryException(ExceptionUtils.GetError("Match", parameter.Id), "Match");
 
         _changeMatchDate(parameter, match);
         _endMatch(parameter, match);
@@ -31,7 +32,7 @@ public class MatchUpdateServices : IMatchUpdateServices
         await _changeTournament(parameter, match);
 
         var saved = await _matchRepository.SaveAsync();
-        if (!saved) throw new RepositoryException($"Could not save this TeamMatch", "Match");
+        if (!saved) throw new RepositoryException(ExceptionUtils.UpdateError("Match", parameter.Id), "Match");
         return saved;
     }
 
@@ -40,7 +41,7 @@ public class MatchUpdateServices : IMatchUpdateServices
         if (parameter.TournamentId != null)
         {
             var tournament = await _tournamentRepository.GetByIdAsync(parameter.TournamentId ?? -1);
-            if (tournament == null) throw new RepositoryException($"Not found Tournament with this ID - {parameter.TournamentId}", "Tournament");
+            if (tournament == null) throw new RepositoryException(ExceptionUtils.GetError("Tournament", parameter.TournamentId), "Tournament");
             match.TournamentId = tournament.Id;
             match.Tournament = tournament;
         }
@@ -72,7 +73,7 @@ public class MatchUpdateServices : IMatchUpdateServices
                 if (match.Teams.Count >= 2) throw new ValidationException("Can have max 2 TEAMS per MATCH");
 
                 var team = await _teamRepository.GetByIdAsync(teamToAddId);
-                if (team == null) throw new RepositoryException($"Not found Team with this ID - {teamToAddId}", "Team");
+                if (team == null) throw new RepositoryException(ExceptionUtils.GetError("Team", teamToAddId), "Team");
                 match.Teams.Add(team);
             }
         }
@@ -86,7 +87,7 @@ public class MatchUpdateServices : IMatchUpdateServices
             {
                 if (match.Teams.Count < 1) continue;
                 var existTeam = match.Teams.FirstOrDefault(x => x.Id == teamToRemoveId);
-                if (existTeam == null) throw new ValidationException($"Not found Team with this ID - {teamToRemoveId}");
+                if (existTeam == null) throw new ValidationException(ExceptionUtils.GetError("Team", teamToRemoveId));
                 match.Teams.Remove(existTeam);
             }
         }

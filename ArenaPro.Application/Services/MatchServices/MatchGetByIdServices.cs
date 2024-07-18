@@ -1,7 +1,8 @@
 ﻿using ArenaPro.Application.Abstractions.MatchServices;
 using ArenaPro.Application.Exceptions;
-using ArenaPro.Application.Models.MatchModels;
+using ArenaPro.Application.Utils;
 using ArenaPro.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace ArenaPro.Application.Services.MatchServices;
 public class MatchGetByIdServices : IMatchGetByIdServices
@@ -13,10 +14,10 @@ public class MatchGetByIdServices : IMatchGetByIdServices
         _matchRepository = matchRepository;
     }
 
-    public async Task<Match> ExecuteAsync(int id)
+    public async Task<Match> ExecuteAsync(int id, params Expression<Func<Match, object>>[] includes)
     {
-        var match = await _matchRepository.GetByIdAsync(id);
-        if (match == null)throw new RepositoryException($"Not found any MATCH with this ID - {id}", "Match");
+        var match = await _matchRepository.GetByIdAsync(id,includes);
+        if (match == null) throw new RepositoryException(ExceptionUtils.GetError("Match", id), "Match");
         return match;
     }
 }
