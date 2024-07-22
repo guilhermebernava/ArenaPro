@@ -1,6 +1,6 @@
 ﻿using ArenaPro.Application.Abstractions.PlayerServices;
 using ArenaPro.Application.Exceptions;
-using ArenaPro.Application.Models.PlayerModels;
+using ArenaPro.Application.Models;
 using ArenaPro.Application.Utils;
 using ArenaPro.Domain.Abstractions;
 using ArenaPro.Domain.Entities;

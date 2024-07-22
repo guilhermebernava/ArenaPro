@@ -32,13 +32,14 @@ public class Team : Entity
 
     public void AddPlayer(Player player)
     {
+        if(Players == null) Players = new List<Player>();
         DomainException.When(Players.Count >= 5, "Team must to have MAX 5 players");
         Players.Add(player);
     }
 
     public void AddTournament(Tournament tournament)
     {
-        if(Tournaments == null) Tournaments = new List<Tournament>();
+        if (Tournaments == null) Tournaments = new List<Tournament>();
         Tournaments.Add(tournament);
     }
 

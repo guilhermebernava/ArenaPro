@@ -23,7 +23,7 @@ public class PlayerRepositoryTests
     {
         var repository = _getRepository();
         var team = new Team("Team 1", new List<Player> { });
-        var player = new Player("test", team);    
+        var player = new Player("test", team.Id);    
         var saved = await repository.CreateAsync(player);
         Assert.True(saved);
 

@@ -122,7 +122,7 @@ public class MatchTests
         var tournament = new Tournament("test");
         var teams = new List<Team>() { new Team("test 1", new List<Player>()), new Team("test 2", new List<Player>()) };
         var match = new Match(DateTime.Now, tournament, teams);
-        var player = new Player("Player 1", teams.First());
+        var player = new Player("Player 1", teams.First().Id);
 
         var exception = Assert.Throws<DomainException>(() => match.AddMatchPlayerKda(player, -1, 0, 0));
         Assert.Equal("Kills,Deaths or Assists could not be less than 0", exception.Message);
@@ -134,11 +134,11 @@ public class MatchTests
         var tournament = new Tournament("test");
         var teams = new List<Team>() { new Team("test 1", new List<Player>()), new Team("test 2", new List<Player>()) };
         var match = new Match(DateTime.Now, tournament, teams);
-        var player = new Player("Player 1", teams.First());
+        var player = new Player("Player 1", teams.First().Id);
 
         for (int i = 0; i < 10; i++)
         {
-            match.AddMatchPlayerKda(new Player("Player " + i, teams.First()), 1, 1, 1);
+            match.AddMatchPlayerKda(new Player("Player " + i, teams.First().Id), 1, 1, 1);
         }
 
         var exception = Assert.Throws<DomainException>(() => match.AddMatchPlayerKda(player, 1, 1, 1));
@@ -152,7 +152,7 @@ public class MatchTests
         var tournament = new Tournament("test");
         var teams = new List<Team>() { new Team("test 1", new List<Player>()), new Team("test 2", new List<Player>()) };
         var match = new Match(DateTime.Now, tournament, teams);
-        var player = new Player("Player 1", teams.First());
+        var player = new Player("Player 1", teams.First().Id);
 
         match.AddMatchPlayerKda(player, 1, 1, 1);
 
@@ -166,7 +166,7 @@ public class MatchTests
         var tournament = new Tournament("test");
         var teams = new List<Team>() { new Team("test 1", new List<Player>()) };
         var match = new Match(DateTime.Now, tournament, teams);
-        var player = new Player("Player 1", teams.First());
+        var player = new Player("Player 1", teams.First().Id);
 
         match.AddMatchPlayerKda(player, 1, 1, 1);
         Assert.Single(match.MatchPlayerKdas);

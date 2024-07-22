@@ -4,7 +4,6 @@ using ArenaPro.Application.Utils;
 using ArenaPro.Domain.Abstractions;
 using ArenaPro.Domain.Entities;
 using System.Linq.Expressions;
-using System.Reflection.Metadata;
 
 namespace ArenaPro.Application.Services.PlayerServices;
 public class PlayerGetByIdServices : IPlayerGetByIdServices
@@ -19,7 +18,7 @@ public class PlayerGetByIdServices : IPlayerGetByIdServices
     public async Task<Player> ExecuteAsync(int id, params Expression<Func<Player, object>>[] includes)
     {
         var player = await _playerRepository.GetByIdAsync(id, includes);
-        if (player == null) throw new RepositoryException(ExceptionUtils.DeleteError("Player", id), "Player");
+        if (player == null) throw new RepositoryException(ExceptionUtils.GetError("Player", id), "Player");
         return player;
     }
 }

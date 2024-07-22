@@ -1,4 +1,4 @@
-﻿namespace ArenaPro.Application.Models.PlayerModels;
+﻿namespace ArenaPro.Application.Models;
 public class PlayerModel
 {
     public int? Id { get; set; }

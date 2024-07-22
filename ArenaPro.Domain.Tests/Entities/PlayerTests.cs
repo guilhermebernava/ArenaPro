@@ -9,14 +9,14 @@ public class PlayerTests
     public void ItShouldCreate()
     {
         var team = new Team("Team 1", new List<Player>());
-        var player = new Player("player 1", team);
+        var player = new Player("player 1", team.Id);
     }
 
     [Fact]
     public void ItShouldThrowsDomainExceptionWhenNameLessThan4Caracters()
     {
         var team = new Team("Team 1", new List<Player>());
-        var exception = Assert.Throws<DomainException>(() => new Player("pla", team));
+        var exception = Assert.Throws<DomainException>(() => new Player("pla", team.Id));
         Assert.Equal("Nick must have at least 4 characters", exception.Message);
     }
 
@@ -24,7 +24,7 @@ public class PlayerTests
     public void ItShouldThrowsDomainExceptionWhenAgeLessThan18()
     {
         var team = new Team("Team 1", new List<Player>());
-        var exception = Assert.Throws<DomainException>(() => new Player("player 1", team, age: 17));
+        var exception = Assert.Throws<DomainException>(() => new Player("player 1", team.Id, age: 17));
         Assert.Equal("Age could not be less than 18 years", exception.Message);
     }
     #endregion
@@ -34,7 +34,7 @@ public class PlayerTests
     public void ItShouldThrowExceptionWhenNickHasLessThanFourCharacters()
     {
         var team = new Team("Team 1", new List<Player>());
-        var player = new Player("player 1", team);
+        var player = new Player("player 1", team.Id);
 
         var exception = Assert.Throws<DomainException>(() => player.ChangeNick("abc"));
 
@@ -45,7 +45,7 @@ public class PlayerTests
     public void ItShouldChangeNickCorrectly()
     {
         var team = new Team("Team 1", new List<Player>());
-        var player = new Player("player 1", team);
+        var player = new Player("player 1", team.Id);
 
         player.ChangeNick("newNick");
 
@@ -58,7 +58,7 @@ public class PlayerTests
     public void ItShouldThrowExceptionWhenAgeIsLessThan18()
     {
         var team = new Team("Team 1", new List<Player>());
-        var player = new Player("player 1", team);
+        var player = new Player("player 1", team.Id);
 
         var exception = Assert.Throws<DomainException>(() => player.ChangeAge(17));
 
@@ -69,7 +69,7 @@ public class PlayerTests
     public void ItShouldChangeAgeCorrectly()
     {
         var team = new Team("Team 1", new List<Player>());
-        var player = new Player("player 1", team);
+        var player = new Player("player 1", team.Id);
 
         player.ChangeAge(20);
 
@@ -82,7 +82,7 @@ public class PlayerTests
     public void ItShouldThrowExceptionWhenTeamIsNull()
     {
         var team = new Team("Team 1", new List<Player>());
-        var player = new Player("player 1", team);
+        var player = new Player("player 1", team.Id);
 
         var exception = Assert.Throws<DomainException>(() => player.ChangeTeam(null));
 
@@ -94,7 +94,7 @@ public class PlayerTests
     {
         var team1 = new Team("Team 1", new List<Player>());
         var team2 = new Team("Team 2", new List<Player>());
-        var player = new Player("player 1", team1);
+        var player = new Player("player 1", team1.Id);
 
         player.ChangeTeam(team2);
 
@@ -108,7 +108,7 @@ public class PlayerTests
     public void ItShouldThrowExceptionWhenEmailIsInvalid()
     {
         var team = new Team("Team 1", new List<Player>());
-        var player = new Player("player 1", team);
+        var player = new Player("player 1", team.Id);
 
         var exception = Assert.Throws<DomainException>(() => player.ChangeEmail("invalid-email"));
 
@@ -119,7 +119,7 @@ public class PlayerTests
     public void ItShouldChangeEmailCorrectly()
     {
         var team = new Team("Team 1", new List<Player>());
-        var player = new Player("player 1", team);
+        var player = new Player("player 1", team.Id);
 
         player.ChangeEmail("valid.email@example.com");
 

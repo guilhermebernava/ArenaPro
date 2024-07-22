@@ -8,6 +8,7 @@ public class Player : Entity
     {
         
     }
+
     public Player(string nick,int? teamId = null, string? name = null, int? age = null, string? genre = null, string? email = null)
     {
         var cleanNick = nick.Replace(" ", "");

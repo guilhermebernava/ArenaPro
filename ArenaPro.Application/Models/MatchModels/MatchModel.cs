@@ -1,4 +1,5 @@
-﻿using ArenaPro.Domain.Entities;
+﻿using ArenaPro.Application.Models.TeamModels;
+using ArenaPro.Domain.Entities;
 
 namespace ArenaPro.Application.Models.MatchValidations;
 public class MatchModel
