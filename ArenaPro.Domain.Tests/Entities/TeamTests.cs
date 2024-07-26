@@ -94,7 +94,7 @@ public class TeamTests
 
         team.ChangeName("New Name");
 
-        Assert.Equal("NewName", team.Name);
+        Assert.Equal("New Name", team.Name);
     }
     #endregion
 

@@ -84,6 +84,6 @@ public class MatchRepositoryTests
     {
         var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(databaseName: "Test").Options;
         var context = new AppDbContext(options);
-        return new MatchRepository(context);
+        return new MatchRepository(context, LogGenerator.GetLogger<MatchRepository>());
     }
 }

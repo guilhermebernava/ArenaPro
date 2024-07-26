@@ -23,6 +23,6 @@ public class TournamentRepositoryTests
     {
         var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(databaseName: "Test").Options;
         var context = new AppDbContext(options);
-        return new TournamentRepository(context);
+        return new TournamentRepository(context, LogGenerator.GetLogger<TournamentRepository>());
     }
 }

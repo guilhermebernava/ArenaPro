@@ -35,6 +35,6 @@ public class PlayerRepositoryTests
     {
         var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(databaseName: "Test").Options;
         var context = new AppDbContext(options);
-        return new PlayerRepository(context);
+        return new PlayerRepository(context, LogGenerator.GetLogger<PlayerRepository>());
     }
 }

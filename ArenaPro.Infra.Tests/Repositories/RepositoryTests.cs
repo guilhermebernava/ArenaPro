@@ -72,6 +72,6 @@ public class RepositoryTests
     {
         var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(databaseName: "Test").Options;
         var context = new AppDbContext(options);
-        return new Repository<Tournament>(context);
+        return new Repository<Tournament>(context, LogGenerator.GetLogger<Repository<Tournament>>());
     }
 }

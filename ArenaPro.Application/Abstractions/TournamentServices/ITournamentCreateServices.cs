@@ -1,6 +1,6 @@
-﻿using ArenaPro.Application.Models.TeamModels;
+﻿using ArenaPro.Application.Models.TournamentModels;
 
 namespace ArenaPro.Application.Abstractions.TournamentServices;
-public interface ITournamentCreateServices : IServices<TeamModel, bool>
+public interface ITournamentCreateServices : IServices<TournamentModel, bool>
 {
 }

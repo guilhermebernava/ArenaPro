@@ -9,7 +9,7 @@ public class MatchTests
     public void ItShouldCraeteMatch()
     {
         var tournament = new Tournament("test");
-        var teams = new List<Team>() { new Team("test 1", new List<Player>()), new Team("test 2", new List<Player>()) };
+        var teams = new List<Team>() { new Team("test 1", []), new Team("test 2", new List<Player>()) };
         var match = new Match(DateTime.Now, tournament, teams);
     }
 
@@ -17,7 +17,7 @@ public class MatchTests
     public void ItShouldThrowsDomainExceptionDueToHaveMoreThan2Teams()
     {
         var tournament = new Tournament("test");
-        var teams = new List<Team>() { new Team("test 1", new List<Player>()), new Team("test 1", new List<Player>()), new Team("test 1", new List<Player>()) };
+        var teams = new List<Team>() { new Team("test 1", []), new Team("test 1", []), new Team("test 1", new List<Player>()) };
         var exception = Assert.Throws<DomainException>(() => new Match(DateTime.Now, tournament, teams));
         Assert.Equal("Must have olny 2 Teams in a Match", exception.Message);
     }
@@ -26,7 +26,7 @@ public class MatchTests
     public void ItShouldThrowsDomainExceptionDueToDateInvalid()
     {
         var tournament = new Tournament("test");
-        var teams = new List<Team>() { new Team("test 1", new List<Player>()), new Team("test 2", new List<Player>()) };
+        var teams = new List<Team>() { new Team("test 1", []), new Team("test 2", new List<Player>()) };
         var exception = Assert.Throws<DomainException>(() => new Match(new DateTime(2000, 01, 01), tournament, teams));
         Assert.Equal("MatchDate could not be smaller than 12/31/2010", exception.Message);
     }

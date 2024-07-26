@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ArenaPro.Application\ArenaPro.Application.csproj" />
+    <ProjectReference Include="..\ArenaPro.Domain\ArenaPro.Domain.csproj" />
+    <ProjectReference Include="..\ArenaPro.Infra\ArenaPro.Infra.csproj" />
+  </ItemGroup>
+
+</Project>

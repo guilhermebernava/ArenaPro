@@ -1,12 +1,13 @@
 ﻿using ArenaPro.Domain.Entities;
 using ArenaPro.Infra.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
 namespace ArenaPro.Infra.Repositories;
 public class MatchRepository : Repository<Match>, IMatchRepository
 {
-    public MatchRepository(AppDbContext dbContext) : base(dbContext)
+    public MatchRepository(AppDbContext dbContext, ILogger<Repository<Match>> logger) : base(dbContext, logger)
     {
     }
 

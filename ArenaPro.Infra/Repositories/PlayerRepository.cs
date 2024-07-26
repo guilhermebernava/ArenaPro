@@ -2,12 +2,13 @@
 using ArenaPro.Domain.Entities;
 using ArenaPro.Infra.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
 namespace ArenaPro.Infra.Repositories;
 public class PlayerRepository : Repository<Player>, IPlayerRepository
 {
-    public PlayerRepository(AppDbContext dbContext) : base(dbContext)
+    public PlayerRepository(AppDbContext dbContext, ILogger<Repository<Player>> logger) : base(dbContext, logger)
     {
     }
 

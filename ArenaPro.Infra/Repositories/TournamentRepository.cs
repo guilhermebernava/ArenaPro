@@ -1,12 +1,13 @@
 ﻿using ArenaPro.Domain.Entities;
 using ArenaPro.Infra.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
 namespace ArenaPro.Infra.Repositories;
 public class TournamentRepository : Repository<Tournament>, ITournamentRepository
 {
-    public TournamentRepository(AppDbContext dbContext) : base(dbContext)
+    public TournamentRepository(AppDbContext dbContext, ILogger<Repository<Tournament>> logger) : base(dbContext, logger)
     {
     }
 

@@ -1,5 +1,6 @@
 ﻿using ArenaPro.Domain.Utils;
 using ArenaPro.Domain.Validations;
+using System.Xml.Linq;
 
 namespace ArenaPro.Domain.Entities;
 public class Player : Entity
@@ -25,9 +26,9 @@ public class Player : Entity
 
     public void ChangeNick(string nick)
     {
-        var cleanNick = nick.Replace(" ", "");
-        DomainException.When(cleanNick.Length < 4, "Nick must have at least 4 characters");
-        Nick = cleanNick;
+        if (string.IsNullOrEmpty(nick)) DomainException.When(true, "String was empty");
+        DomainException.When(nick.Length < 4, "Nick must have at least 4 characters");
+        Nick = nick;
     }
 
     public void ChangeAge(int age)
@@ -39,8 +40,8 @@ public class Player : Entity
     public void ChangeTeam(Team team)
     {
         DomainException.When(team == null, "Team could not be NULL");
-        Team = team;
-        TeamId = team.Id;
+        Team = team!;
+        TeamId = team!.Id;
     }
 
     public void ChangeEmail(string email)

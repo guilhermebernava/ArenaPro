@@ -72,7 +72,7 @@ public class TournamentTests
 
         tournament.ChangeName("New Name");
 
-        Assert.Equal("NewName", tournament.Name);
+        Assert.Equal("New Name", tournament.Name);
     }
     #endregion
 

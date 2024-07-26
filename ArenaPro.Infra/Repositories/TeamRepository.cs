@@ -1,12 +1,13 @@
 ﻿using ArenaPro.Domain.Entities;
 using ArenaPro.Infra.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
 namespace ArenaPro.Infra.Repositories;
 public class TeamRepository : Repository<Team>, ITeamRepository
 {
-    public TeamRepository(AppDbContext dbContext) : base(dbContext)
+    public TeamRepository(AppDbContext dbContext, ILogger<Repository<Team>> logger) : base(dbContext, logger)
     {
     }
 

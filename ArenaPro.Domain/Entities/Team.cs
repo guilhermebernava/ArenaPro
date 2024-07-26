@@ -23,23 +23,23 @@ public class Team : Entity
 
     public void ChangeName(string name)
     {
-        var cleanName = name.Replace(" ", "");
-        DomainException.When(cleanName.Length < 4, "Name must have at least 4 characters");
-        Name = cleanName;
+        if (string.IsNullOrEmpty(name)) DomainException.When(true, "String was empty");
+        DomainException.When(name.Length < 4, "Name must have at least 4 characters");
+        Name = name;
     }
 
     public bool RemovePlayer(Player playerToRemove) => Players.Remove(playerToRemove);
 
     public void AddPlayer(Player player)
     {
-        if(Players == null) Players = new List<Player>();
+        if(Players == null) Players = [];
         DomainException.When(Players.Count >= 5, "Team must to have MAX 5 players");
         Players.Add(player);
     }
 
     public void AddTournament(Tournament tournament)
     {
-        if (Tournaments == null) Tournaments = new List<Tournament>();
+        if (Tournaments == null) Tournaments = [];
         Tournaments.Add(tournament);
     }
 
@@ -49,7 +49,7 @@ public class Team : Entity
 
     public void AddMatch(Match match)
     {
-        if (Matches == null) Matches = new List<Match>();
+        if (Matches == null) Matches = [];
         Matches.Add(match);
     }
 

@@ -1,4 +1,5 @@
 ﻿using ArenaPro.Application.Models.MatchValidations;
+using ArenaPro.Application.Models.TournamentModels;
 
 namespace ArenaPro.Application.Models.TeamModels;
 public class TeamModel

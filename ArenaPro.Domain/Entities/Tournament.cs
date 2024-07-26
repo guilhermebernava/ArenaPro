@@ -1,14 +1,13 @@
 ﻿using ArenaPro.Domain.Validations;
-using System.Text.RegularExpressions;
 
 namespace ArenaPro.Domain.Entities;
 public class Tournament : Entity
 {
     protected Tournament()
     {
-        
+
     }
-    public Tournament(string name,double? prize = null, List<Team>? teams = null)
+    public Tournament(string name, double? prize = null, List<Team>? teams = null, List<Match>? matches = null)
     {
         var cleanName = name.Replace(" ", "");
         DomainException.When(cleanName.Length < 4, "Name must have at least 4 characters");
@@ -16,14 +15,15 @@ public class Tournament : Entity
 
         Name = cleanName;
         Prize = prize;
-        if(teams != null) Teams = teams;
+        if (teams != null) Teams = teams;
+        if (matches != null) Matches = matches;
     }
 
     public void ChangeName(string name)
     {
-        var cleanName = name.Replace(" ", "");
-        DomainException.When(cleanName.Length < 4, "Name must have at least 4 characters");
-        Name = cleanName;
+        if(string.IsNullOrEmpty(name)) DomainException.When(true, "String was empty");
+        DomainException.When(name.Length < 4, "Name must have at least 4 characters");
+        Name = name;
     }
 
     public void ChangePrize(double prize)
@@ -32,18 +32,42 @@ public class Tournament : Entity
         Prize = prize;
     }
 
+    public void AddTeam(Team team)
+    {
+        if (Teams == null) Teams = new List<Team>();
+        Teams.Add(team);
+    }
+    public void RemoveTeam(Team team)
+    {
+        if (Teams == null) return;
+        Teams.Remove(team);
+    }
+
+    public void AddMatch(Match match)
+    {
+        if (Matches == null) Matches = new List<Match>();
+        Matches.Add(match);
+    }
+
+    public void RemoveMatch(Match match)
+    {
+        if (Matches == null) return;
+        Matches.Remove(match);
+    }
+
     public void AddTeams(List<Team> teams)
     {
-        if(Teams == null) Teams = new List<Team>();
+        if (Teams == null) Teams = new List<Team>();
         Teams.AddRange(teams);
     }
 
-    public void RemoveTeams(List<Team> teams) {
+    public void RemoveTeams(List<Team> teams)
+    {
         if (Teams == null) return;
         foreach (Team team in teams)
         {
             var existTeam = Teams.FirstOrDefault(_ => _.Id == team.Id);
-            if(existTeam != null) Teams.Remove(existTeam);
+            if (existTeam != null) Teams.Remove(existTeam);
         }
     }
 
@@ -55,7 +79,7 @@ public class Tournament : Entity
 
     public void RemoveMatches(List<Match> matches)
     {
-        if(Matches == null) return;
+        if (Matches == null) return;
         foreach (Match match in matches)
         {
             var existMatch = Matches.FirstOrDefault(_ => _.Id == match.Id);

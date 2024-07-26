@@ -1,7 +1,7 @@
 ﻿using ArenaPro.Application.Models.MatchValidations;
 using ArenaPro.Application.Models.TeamModels;
 
-namespace ArenaPro.Application.Models;
+namespace ArenaPro.Application.Models.TournamentModels;
 public class TournamentModel
 {
     public int? Id { get; set; }

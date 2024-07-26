@@ -2,6 +2,7 @@
 using ArenaPro.Application.Models;
 using ArenaPro.Application.Models.MatchValidations;
 using ArenaPro.Application.Models.TeamModels;
+using ArenaPro.Application.Models.TournamentModels;
 using ArenaPro.Application.Services.TeamServices;
 using ArenaPro.Domain.Abstractions;
 using ArenaPro.Domain.Entities;

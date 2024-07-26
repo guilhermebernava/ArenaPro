@@ -23,6 +23,6 @@ public class TeamRepositoryTests
     {
         var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(databaseName: "Test").Options;
         var context = new AppDbContext(options);
-        return new TeamRepository(context);
+        return new TeamRepository(context, LogGenerator.GetLogger<TeamRepository>());
     }
 }
