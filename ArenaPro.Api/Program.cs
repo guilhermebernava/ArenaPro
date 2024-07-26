@@ -1,18 +1,13 @@
 using ArenaPro.Api.Filters;
 using ArenaPro.CrossCutting;
 using Serilog;
-using Serilog.Sinks.Graylog;
-using Serilog.Sinks.Graylog.Core.Transport;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, services, configuration) => configuration
-    .WriteTo.Graylog(new GraylogSinkOptions
-    {
-        HostnameOrAddress = builder.Configuration["Graylog"],
-        Port = int.Parse(builder.Configuration["GraylogPort"]!),
-        TransportType = TransportType.Udp
-    })
+    .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Fatal)
+    .MinimumLevel.Override("System", Serilog.Events.LogEventLevel.Fatal)
+    .WriteTo.Seq(builder.Configuration["SeqUrl"]!)
     .ReadFrom.Configuration(context.Configuration)
     .Enrich.FromLogContext());
 
