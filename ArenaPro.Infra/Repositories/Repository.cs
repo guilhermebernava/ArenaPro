@@ -23,7 +23,7 @@ public class Repository<T> : IRepository<T> where T : Entity
     {
         dbSet.Add(T);
         var logMessage = _getPropertiesLogMessage(T);
-        _logger.LogInformation($"Created entity with properties: {logMessage}");
+        _logger.LogInformation($"Created: {logMessage}");
         return await SaveAsync();
     }
 
@@ -32,7 +32,7 @@ public class Repository<T> : IRepository<T> where T : Entity
         T.Delete();
         dbSet.Update(T);
         var logMessage = _getPropertiesLogMessage(T);
-        _logger.LogInformation($"Deleted entity with properties: {logMessage}");
+        _logger.LogInformation($"Deleted: {logMessage}");
         return await SaveAsync();
     }
 
@@ -52,7 +52,7 @@ public class Repository<T> : IRepository<T> where T : Entity
     {
         dbSet.Update(T);
         var logMessage = _getPropertiesLogMessage(T);
-        _logger.LogInformation($"Updated entity with properties: {logMessage}");
+        _logger.LogInformation($"Updated: {logMessage}");
         return await SaveAsync();
     }
 
@@ -76,7 +76,15 @@ public class Repository<T> : IRepository<T> where T : Entity
     private string _getPropertiesLogMessage(T entity)
     {
         var properties = typeof(T).GetProperties();
-        var propertyValues = properties.Select(p => $"{p.Name}: {p.GetValue(entity)}");
-        return string.Join(", ", propertyValues);
+        var propertyValues = properties
+            .Where(p => !(p.GetValue(entity) is Entity))
+            .Select(p =>
+        {
+            var value = p.GetValue(entity);
+            if (value is Entity) return "";
+            return $"{p.Name}: {value ?? "null"}\n";
+        });
+        var currentDate = $" - Date: {DateTime.Now}";
+        return string.Join(", ", propertyValues) + currentDate;
     }
 }

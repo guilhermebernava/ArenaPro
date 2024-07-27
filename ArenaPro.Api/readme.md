@@ -1,11 +1,5 @@
 -- SEQ:
-docker-compose up 
+docker run --name seq -d --restart unless-stopped -e ACCEPT_EULA=Y -p 5341:80 datalust/seq:latest
 
-deve rodar esse comando dentro da caminho da ArenaPro.Api
-
-"--"BANCP DE DADOS:
-
+-- BANCO DE DADOS:
 docker run --name postgres-db -e POSTGRES_USER=bernava -e POSTGRES_PASSWORD=strongpassword1234 -e POSTGRES_DB=arenapro -p 5432:5432 -d postgres:latest
-
-
-
