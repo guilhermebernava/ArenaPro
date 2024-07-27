@@ -61,7 +61,7 @@ public class MatchController : ControllerBase
     {
         var created = await services.ExecuteAsync(model);
         if (!created) return BadRequest();
-        return Created();
+        return Ok();
     }
 
     [HttpPost]
@@ -69,7 +69,7 @@ public class MatchController : ControllerBase
     {
         var created = await services.ExecuteAsync(model);
         if (!created) return BadRequest();
-        return Created();
+        return Ok();
     }
 
     [HttpDelete]
@@ -77,7 +77,7 @@ public class MatchController : ControllerBase
     {
         var created = await services.ExecuteAsync(model);
         if (!created) return BadRequest();
-        return Created();
+        return Ok();
     }
 
     [HttpDelete]
@@ -85,6 +85,6 @@ public class MatchController : ControllerBase
     {
         var created = await services.ExecuteAsync(model);
         if (!created) return BadRequest();
-        return Created();
+        return Ok();
     }
 }
