@@ -1,9 +1,11 @@
 ﻿using ArenaPro.Application.Abstractions.TournamentServices;
 using ArenaPro.Application.Models.TournamentModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArenaPro.Api.Controllers;
 [Route("api/[controller]")]
+[Authorize]
 [ApiController]
 public class TournamentController : ControllerBase
 {
@@ -38,7 +40,7 @@ public class TournamentController : ControllerBase
         return Ok(data);
     }
 
-    [HttpGet]
+    [HttpGet("byName")]
     public async Task<IActionResult> GetByNameAsync([FromServices] ITournamentGetByNameServices services, [FromQuery] string name)
     {
         var data = await services.ExecuteAsync(name);

@@ -1,9 +1,11 @@
 ﻿using ArenaPro.Application.Abstractions.TeamServices;
 using ArenaPro.Application.Models.TeamModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArenaPro.Api.Controllers;
 [Route("api/[controller]")]
+[Authorize]
 [ApiController]
 public class TeamController : ControllerBase
 {
@@ -38,7 +40,7 @@ public class TeamController : ControllerBase
         return Ok(data);
     }
 
-    [HttpGet]
+    [HttpGet("byName")]
     public async Task<IActionResult> GetByNameAsync([FromServices] ITeamGetByNameServices services, [FromQuery] string name)
     {
         var data = await services.ExecuteAsync(name);

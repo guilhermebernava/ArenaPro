@@ -1,9 +1,11 @@
 ﻿using ArenaPro.Application.Abstractions.PlayerServices;
 using ArenaPro.Application.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArenaPro.Api.Controllers;
 [Route("api/[controller]")]
+[Authorize]
 [ApiController]
 public class PlayerController : ControllerBase
 {
@@ -38,7 +40,7 @@ public class PlayerController : ControllerBase
         return Ok(data);
     }
 
-    [HttpGet]
+    [HttpGet("byNick")]
     public async Task<IActionResult> GetByNickAsync([FromServices] IPlayerGetByNickServices services, [FromQuery] string nick)
     {
         var data = await services.ExecuteAsync(nick);
@@ -46,7 +48,7 @@ public class PlayerController : ControllerBase
         return Ok(data);
     }
 
-    [HttpGet]
+    [HttpGet("byTeamId")]
     public async Task<IActionResult> GetByTeamIdAsync([FromServices] IPlayerGetByTeamIdServices services, [FromQuery] int teamId)
     {
         var data = await services.ExecuteAsync(teamId);

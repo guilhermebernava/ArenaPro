@@ -2,10 +2,12 @@
 using ArenaPro.Application.Models;
 using ArenaPro.Application.Models.MatchModels;
 using ArenaPro.Application.Models.MatchValidations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArenaPro.Api.Controllers;
 [Route("api/[controller]")]
+[Authorize]
 [ApiController]
 public class MatchController : ControllerBase
 {
@@ -40,7 +42,7 @@ public class MatchController : ControllerBase
         return Ok(data);
     }
 
-    [HttpGet]
+    [HttpGet("byDate")]
     public async Task<IActionResult> GetByDateAsync([FromServices] IMatchGetByDateServices services, [FromQuery] MatchGetModel<DateTime> model)
     {
         var data = await services.ExecuteAsync(model);
@@ -48,7 +50,7 @@ public class MatchController : ControllerBase
         return Ok(data);
     }
 
-    [HttpGet]
+    [HttpGet("byTournamentId")]
     public async Task<IActionResult> GetByTournamentIdAsync([FromServices] IMatchGetByTournamentIdServices services, [FromQuery] MatchGetModel<int> model)
     {
         var data = await services.ExecuteAsync(model);
@@ -56,7 +58,7 @@ public class MatchController : ControllerBase
         return Ok(data);
     }
 
-    [HttpPost]
+    [HttpPost("AddMatchResult")]
     public async Task<IActionResult> AddMatchResultAsync([FromServices] IMatchAddMatchResultServices services, [FromBody] List<MatchResultModel> model)
     {
         var created = await services.ExecuteAsync(model);
@@ -64,7 +66,7 @@ public class MatchController : ControllerBase
         return Ok();
     }
 
-    [HttpPost]
+    [HttpPost("AddMatchKda")]
     public async Task<IActionResult> AddMatchKdaAsync([FromServices] IMatchAddPlayerKdaServices services, [FromBody] List<MatchPlayerKdaModel> model)
     {
         var created = await services.ExecuteAsync(model);
@@ -72,7 +74,7 @@ public class MatchController : ControllerBase
         return Ok();
     }
 
-    [HttpDelete]
+    [HttpDelete("RemoveMatchResult")]
     public async Task<IActionResult> RemoveMatchResultAsync([FromServices] IMatchRemoveMatchResultServices services, [FromBody] List<MatchResultModel> model)
     {
         var created = await services.ExecuteAsync(model);
@@ -80,7 +82,7 @@ public class MatchController : ControllerBase
         return Ok();
     }
 
-    [HttpDelete]
+    [HttpDelete("RemoveMatchKda")]
     public async Task<IActionResult> RemoveMatchKdaAsync([FromServices] IMatchRemovePlayerKdaServices services, [FromBody] List<MatchPlayerKdaModel> model)
     {
         var created = await services.ExecuteAsync(model);
